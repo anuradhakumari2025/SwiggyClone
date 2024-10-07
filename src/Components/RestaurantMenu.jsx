@@ -16,28 +16,18 @@ function RestaurantMenu() {
 
 
   async function FetchMenu() {
-    console.log("Anuradha")
     try {
-      let data = await fetch(
-        `https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=21.99740&lng=79.00110&restaurantId=${restaurantId}&catalog_qa=undefined&submitAction=ENTER`
-      );
-      console.log("Status:", response.status); // Log status to debug
-      
-      if (!data.ok) {
-        throw new Error("Network response was not ok");
-      }
-      
+      console.log("Fetching menu...");
+      let data = await fetch(`http://localhost:5000/api/menu/${restaurantId}`);
       let res = await data.json();
-      console.log("Menu", res);
-      
+      console.log("Menu Data:", res);
       let menuName = res?.data?.cards[0]?.card?.card?.text;
-      console.log("Restaurant Menu", menuName);
       setMenuData(menuName);
-      
     } catch (error) {
       console.error("Error fetching menu:", error);
     }
   }
+  
   
 
 
